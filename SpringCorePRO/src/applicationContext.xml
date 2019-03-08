@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd ">
+
+<!-- Bean Definition -->
+<!-- Infrastructure service class whose object's life cycle IOC container will manage must be
+defined in xml file -->
+<!-- Bean definition Configuration template -->
+<!-- IOC Container by default implements Factory and Singleton Design patterns -->
+<!-- eagerly loading and lazy loading -->
+	<bean id="bean1" class="com.cognizant.beans.Bean1"></bean>
+	<bean id="bean2" class="com.cognizant.beans.Bean2" lazy-init="true"></bean>
+	<!-- to make bean prototype specify scope="" -->
+	<bean id="bean3" class="com.cognizant.beans.Bean3" scope="prototype"></bean>
+	<!-- custom init and destroy method -->
+	<bean id="bean4" class="com.cognizant.beans.Bean4" init-method="initMethod" destroy-method="destroyMethod"></bean>
+	<!-- Factory bean -->
+	<bean id="factorybean" class="com.cognizant.beans.FactoryBean"></bean>
+	<!-- factory method -->
+	<!-- <bean id="bean5" class="com.cognizant.beans.Bean5" factory-method="createInstance"></bean> -->
+	<bean id="bean5" class="com.cognizant.beans.Bean5" factory-bean="factorybean" factory-method="createInstanceBean5"></bean>
+	<bean id="datasource" class="com.cognizant.di.DataSource" >
+	<constructor-arg index="0" type="java.lang.String" value="oracle.jdbc.OracleDriver"></constructor-arg>
+	<constructor-arg index="1" type="java.lang.String" value="jdbc:oracle:thin:@localhost:1521:xe"></constructor-arg>
+	<constructor-arg index="2" type="java.lang.String" value="System"></constructor-arg>
+	<constructor-arg index="3" type="java.lang.String" value="cognizant"></constructor-arg>
+	</bean>
+	<bean id="productsquery" class="com.cognizant.di.ProductsQuery">
+	<property name="selectProducts" value="select * from products"></property>
+	<property name="insertProducts" value="insert into products values(?,?,?)"></property>
+	</bean>
+	<bean id="greeting" class="com.cognizant.di.GreetingImpl" name="greeting1,greeting2"></bean>
+	<bean id="collection" class="com.cognizant.di.CollectionBean">
+	<property name="countryNames">
+	<list>
+	<value>India</value>
+	<value>USA</value>
+	<value>Germany</value>
+	</list>
+	</property>
+	<property name="cityNames">
+	<set>
+	<value>Pune</value>
+	<value>Chandigarh</value>
+	<value>Delhi</value>
+	</set>
+	</property>
+	<property name="regionNames">
+	<map>
+	<entry key="R1" value="AMEA"></entry>
+	<entry key="R2" value="APAC"></entry>
+	<entry key="R3" value="NA"></entry>
+	</map>
+	</property>
+	</bean>
+</beans>
