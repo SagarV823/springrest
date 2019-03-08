@@ -1,6 +1,7 @@
 package com.cognizant.service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -64,6 +65,35 @@ public class EmployeeServiceImpl implements EmployeeService{
 		{
 			return empList.add(employee);
 		}
+	}
+
+	@Override
+	public boolean updateEmployeeSalary(int empId, double newSalary) {
+		// TODO Auto-generated method stub
+		for(Employee emp:empList){
+			if(emp.getEmpId()==empId){
+				double oldSalary=emp.getEmpSalary();
+				emp.setEmpSalary(newSalary);
+				
+				if(oldSalary!=newSalary)
+					return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean deleteEmployee(int empId) {
+		// TODO Auto-generated method stub
+		boolean flag=false;
+		for(Iterator<Employee> iterator=empList.iterator();iterator.hasNext();){
+			Employee emp=iterator.next();
+			if(emp.getEmpId()==empId){
+				iterator.remove();
+				flag=true;
+			}
+		}
+		return flag;
 	}
 
 }
